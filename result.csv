@@ -1,0 +1,35 @@
+,DATE,URL,NAME,TICKER,OPEN,CLOSE,VARIATION
+0,2021-10-15,https://valor.globo.com/empresas/noticia/2021/10/13/getninjas-tem-expansao-de-142percent-no-numero-de-profissionais-cadastrados-para-servicos-no-3o-trimestre.ghtml,GetNinjas,NINJ3,9.18,9.06,-0.12
+1,2021-10-15,https://valor.globo.com/opiniao/noticia/2021/10/14/para-fmi-pandemia-ainda-ameaca-recuperacao-global.ghtml,Mundial,MNDL3,55.01,55.93,0.92
+2,2019-04-16,https://valor.globo.com/mundo/noticia/2019/04/16/ue-ameaca-processar-eua-na-omc-se-embargo-a-cuba-prejudicar-empresas.ghtml,Mundial,MNDL3,31.5,31.5,0.0
+3,2019-04-16,https://valor.globo.com/brasil/noticia/2019/04/16/intervencao-foi-percalco-diz-maia.ghtml,Petrobras,PETR4,25.95,26.72,0.77
+4,2019-04-16,https://valor.globo.com/brasil/noticia/2019/04/16/intervencao-foi-percalco-diz-maia.ghtml,Petrobras,PETR3,29.2,30.15,0.95
+5,2019-04-16,https://valor.globo.com/brasil/noticia/2019/04/16/pacote-tenta-apaziguar-caminhoneiros.ghtml,Petrobras,PETR4,25.95,26.72,0.77
+6,2019-04-16,https://valor.globo.com/brasil/noticia/2019/04/16/pacote-tenta-apaziguar-caminhoneiros.ghtml,Petrobras,PETR3,29.2,30.15,0.95
+7,2016-07-15,https://valor.globo.com/empresas/noticia/2016/07/15/ferreira-jr-avalia-candidatos-para-nova-diretoria-da-estatal.ghtml,Eletrobras,ELET3,15.81,16.1,0.29
+8,2016-07-15,https://valor.globo.com/empresas/noticia/2016/07/15/ferreira-jr-avalia-candidatos-para-nova-diretoria-da-estatal.ghtml,Eletrobras,ELET6,21.46,21.44,-0.02
+9,2016-07-15,https://valor.globo.com/empresas/noticia/2016/07/15/ferreira-jr-avalia-candidatos-para-nova-diretoria-da-estatal.ghtml,Eletrobras,ELET5,17.33,17.33,0.0
+10,2020-08-09,https://valor.globo.com/brasil/noticia/2020/08/09/voos-em-agosto-atingem-40-pontos-percentuais-dos-nveis-pr-pandemia.ghtml,Azul,AZUL4,-1.0,-1.0,-1.0
+11,2012-12-17,https://valor.globo.com/brasil/noticia/2012/12/16/corinthians-derrota-chelsea-e-vence-no-japao-o-mundial-de-clubes.ghtml,Mundial,MNDL3,18.0,18.0,0.0
+12,2012-12-17,https://valor.globo.com/empresas/noticia/2012/12/16/casino-derruba-intencoes-de-abilio-diniz-em-reuniao-do-conselho.ghtml,Grupo Pão de Açúcar,PCAR3,74.99,74.99,0.0
+13,2012-12-17,https://valor.globo.com/empresas/noticia/2012/12/16/apagao-atinge-2-milhoes-de-consumidores-no-sudeste.ghtml,Light,LIGT3,22.32,22.0,-0.32
+14,2012-12-17,https://valor.globo.com/politica/noticia/2012/12/16/proposta-do-governo-para-divida-publica-contempla-sp-diz-haddad.ghtml,Porto Seguro,PSSA3,11.03,11.24,0.22
+15,2019-05-21,https://valor.globo.com/agronegocios/noticia/2019/05/21/brf-avalia-vender-participacao-minoritaria-em-ativos-no-oriente-medio.ghtml,BRF,BRFS3,32.07,30.04,-2.03
+16,2019-05-21,https://valor.globo.com/politica/noticia/2019/05/21/fundo-bilionario-da-petrobras-continua-sem-destino.ghtml,Petrobras,PETR4,25.7,26.49,0.79
+17,2019-05-21,https://valor.globo.com/politica/noticia/2019/05/21/fundo-bilionario-da-petrobras-continua-sem-destino.ghtml,Petrobras,PETR3,28.25,28.8,0.55
+18,2019-09-05,https://valor.globo.com/empresas/noticia/2019/09/05/delivery-center-ganha-mais-um-socio.ghtml,Multiplan,MULT3,26.5,26.57,0.07
+19,2019-09-05,https://valor.globo.com/empresas/noticia/2019/09/05/delivery-center-ganha-mais-um-socio.ghtml,Cyrela,CYRE3,24.06,23.9,-0.16
+20,2019-09-05,https://valor.globo.com/agronegocios/noticia/2019/09/05/jbs-tenta-mostrar-que-e-global-e-diversificada.ghtml,JBS,JBSS3,30.6,30.24,-0.36
+21,2019-09-05,https://valor.globo.com/politica/noticia/2019/09/04/senado-autoriza-mato-grosso-a-pedir-us-250-milhoes-ao-banco-mundial.ghtml,Mundial,MNDL3,36.4,36.4,0.0
+22,2014-07-05,https://valor.globo.com/brasil/noticia/2014/07/05/me-tiraram-o-sonho-de-disputar-uma-final-de-copa-diz-neymar.ghtml,Mundial,MNDL3,-1.0,-1.0,-1.0
+23,2014-07-05,https://valor.globo.com/brasil/noticia/2014/07/05/neymar-deixa-a-selecao-e-vai-para-casa-no-litoral-paulista.ghtml,São Carlos,SCAR3,-1.0,-1.0,-1.0
+24,2014-07-05,https://valor.globo.com/brasil/noticia/2014/07/05/neymar-deixa-a-selecao-e-vai-para-casa-no-litoral-paulista.ghtml,Mundial,MNDL3,-1.0,-1.0,-1.0
+25,2023-04-04,https://valor.globo.com/empresas/noticia/2023/04/04/venda-da-aesop-deve-ser-concluida-no-3o-trimestre-diz-diretor-presidente-da-natura-andco.ghtml,Natura,NTCO3,14.51,13.11,-1.4
+26,2023-04-04,https://valor.globo.com/legislacao/noticia/2023/04/04/ambev-carf-cancela-parte-de-autuacao-fiscal-por-uso-de-agio-da-incorporacao-da-inbev.ghtml,Ambev,ABEV3,14.41,14.43,0.02
+27,2023-04-04,https://valor.globo.com/empresas/noticia/2023/04/04/cba-fecha-em-queda-de-165-pontos-percentuais-no-menor-preo-desde-a-abertura-de-capital.ghtml,CBA,CBAV3,7.19,6.21,-0.98
+28,2023-04-04,https://valor.globo.com/empresas/noticia/2023/04/04/petrobras-nao-teve-blindagem-perfeita-afirma-ex-diretor.ghtml,Petrobras,PETR4,24.63,24.27,-0.36
+29,2023-04-04,https://valor.globo.com/empresas/noticia/2023/04/04/petrobras-nao-teve-blindagem-perfeita-afirma-ex-diretor.ghtml,Petrobras,PETR3,27.96,27.36,-0.6
+30,2021-06-06,https://valor.globo.com/empresas/noticia/2021/06/06/exclusivo-fundo-apollo-fez-oferta-pela-unipar-e-potencial-manda-segue-em-discussao.ghtml,Unipar,UNIP6,-1.0,-1.0,-1.0
+31,2021-06-06,https://valor.globo.com/empresas/noticia/2021/06/06/exclusivo-fundo-apollo-fez-oferta-pela-unipar-e-potencial-manda-segue-em-discussao.ghtml,Unipar,UNIP3,-1.0,-1.0,-1.0
+32,2021-06-06,https://valor.globo.com/empresas/noticia/2021/06/06/exclusivo-fundo-apollo-fez-oferta-pela-unipar-e-potencial-manda-segue-em-discussao.ghtml,Unipar,UNIP5,-1.0,-1.0,-1.0
+33,2021-06-06,https://valor.globo.com/brasil/noticia/2021/06/06/estamos-todos-em-um-barco-que-esta-naufragando-o-planeta-e-um-so.ghtml,Mundial,MNDL3,-1.0,-1.0,-1.0
