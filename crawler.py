@@ -1,17 +1,21 @@
 import requests # para requisições http
-# import json # para gerar JSON a partir de objetos do Python
 from bs4 import BeautifulSoup # BeautifulSoup é uma biblioteca Python de extração de dados de arquivos HTML e XML.
 import xml.etree.ElementTree as ET
 import pandas as pd
 from random import shuffle
-from datetime import datetime
 import yfinance as yf
 from concurrent.futures import ThreadPoolExecutor
 
+from time import sleep
+import json
+import codecs
 
-QTD_BASE = 10
+
+QTD_BASE = 3
+SLEEP_TIME = 5
 
 
+# Seleciona valores aleatórios
 def random_numbers(n: int, list_size: int):
     numbers = list(range(n))
     shuffle(numbers)
@@ -25,7 +29,7 @@ def get_companies_data():
     
     companies = []
     for row in data[1:]:
-        data = row.text.strip().split('')
+        data = row.text.strip().splitlines()
         companies.append({'TICKER': data[0], 'NAME': data[1]})
     
     return companies
@@ -36,10 +40,13 @@ def get_news(url: str):
     xml_content = page.content
     root = ET.fromstring(xml_content)
 
-    # Extrair o conteúdo das tags "loc"
+    # Extrair o conteúdo das tags "loc", que contém os links das notícias
     locs = root.findall('.//{http://www.sitemaps.org/schemas/sitemap/0.9}loc')
+    
+    # Extrair o conteúdo das tags "loc", que contém a data das notícias
     lastmod = root.find('.//{http://www.sitemaps.org/schemas/sitemap/0.9}lastmod')
 
+    # Seleciona valores aleatórios para que as notícias sejam bem distribuídas no tempo
     locs = [locs[i] for i in random_numbers(len(locs), QTD_BASE)]
 
     news = []
@@ -49,12 +56,14 @@ def get_news(url: str):
             print(f'Extraindo urls de {url}')
             news += get_news(url)
         else:
+            sleep(SLEEP_TIME)
             page = requests.get(url)
             parsed_content = BeautifulSoup(page.content, 'html.parser')
+            title = parsed_content.find('h1', {'class' : 'content-head__title'})
             article = parsed_content.find('article')
+            date = lastmod.text[:10]
 
-            date = datetime.strptime(lastmod.text[:10], '%Y-%m-%d')
-            news += [{'URL': url, 'DATE': date, 'NEWS': article.text}]
+            news += [{'URL': url, 'DATE': date, 'TITLE': title.text, 'NEWS': article.text}]
     
     return news
 
@@ -76,28 +85,31 @@ def news_processing(news, companies):
             future = executor.submit(check_mention_company, article, companies)
             results.append(future)
     
-    # Obter resultados
+    # Extrair dados
     data = []
     for result in results:
         news_mentions = result.result()
         if news_mentions['MENTIONS']:
             article, mentions = news_mentions['ARTICLE'], news_mentions['MENTIONS']
             for mention in mentions:
-                data.append({'DATE': article['DATE'], 'URL': article['URL'],
+                data.append({'DATE': article['DATE'], 'URL': article['URL'], 'TITLE': article['TITLE'],
                             'NAME': mention['NAME'], 'TICKER': mention['TICKER']})
     
     return pd.DataFrame(data)
 
 
+# Pega informações das empresas listadas na bolsa (nome e tickers)
 companies = get_companies_data()
 df_companies = pd.DataFrame(companies)
 
 news = get_news('https://valor.globo.com/sitemap/valor/sitemap.xml')
 df_news = pd.DataFrame(news)
 
-# Processar as notícias em paralelo
+# Processa as notícias em paralelo
 df_result = news_processing(df_news, df_companies)
 
+
+#################################################
 
 
 # Pesquisar valores das ações no dia das notícias
@@ -112,6 +124,7 @@ opens = []
 closes = []
 variations = []
 def set_values(ticker):
+    sleep(SLEEP_TIME)
     stock = yf.download(tickers=ticker)
     stock_data = stock[date:date]
     
@@ -136,8 +149,14 @@ for _, row in df_result.iterrows():
         closes.append(-1)
         variations.append(-1)
 
+# Insere os dados obtidos no DataFrame
 df_result['OPEN'] = opens
 df_result['CLOSE'] = closes
 df_result['VARIATION'] = variations
 
-df_result.to_csv('result.csv')
+# Converte o DataFrame para um formato mais adequado
+dict_list = df_result.to_dict(orient='records')
+
+# Converte os objetos Pyhton em objeto JSON e exporta para o noticias.json
+with codecs.open('resultado.json', 'w', encoding='utf-8') as arquivo:
+  arquivo.write(str(json.dumps(dict_list, indent=4, ensure_ascii=False)))

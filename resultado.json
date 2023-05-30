@@ -1,0 +1,42 @@
+[
+    {
+        "DATE": "2019-02-02",
+        "URL": "https://valor.globo.com/empresas/noticia/2019/02/02/mineracao-causou-tres-vazamentos-por-ano-no-mundo-desde-2009.ghtml",
+        "TITLE": "Mineração causou três vazamentos por ano no mundo desde 2009",
+        "NAME": "Vale",
+        "TICKER": "VALE3",
+        "OPEN": -1.0,
+        "CLOSE": -1.0,
+        "VARIATION": -1.0
+    },
+    {
+        "DATE": "2019-02-02",
+        "URL": "https://valor.globo.com/empresas/noticia/2019/02/02/agu-pretende-cobrar-vale-por-gastos-em-brumadinho.ghtml",
+        "TITLE": "AGU pretende cobrar Vale por gastos em Brumadinho",
+        "NAME": "Vale",
+        "TICKER": "VALE3",
+        "OPEN": -1.0,
+        "CLOSE": -1.0,
+        "VARIATION": -1.0
+    },
+    {
+        "DATE": "2015-02-26",
+        "URL": "https://valor.globo.com/empresas/noticia/2015/02/26/analistas-apontam-que-endividamento-elevado-ainda-nao-tem-solucao.ghtml",
+        "TITLE": "Analistas apontam que endividamento elevado ainda não tem solução ",
+        "NAME": "Petrobras",
+        "TICKER": "PETR4",
+        "OPEN": 9.4,
+        "CLOSE": 9.23,
+        "VARIATION": -0.17
+    },
+    {
+        "DATE": "2015-02-26",
+        "URL": "https://valor.globo.com/empresas/noticia/2015/02/26/analistas-apontam-que-endividamento-elevado-ainda-nao-tem-solucao.ghtml",
+        "TITLE": "Analistas apontam que endividamento elevado ainda não tem solução ",
+        "NAME": "Petrobras",
+        "TICKER": "PETR3",
+        "OPEN": 9.32,
+        "CLOSE": 9.2,
+        "VARIATION": -0.12
+    }
+]
