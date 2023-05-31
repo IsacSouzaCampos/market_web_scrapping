@@ -36,7 +36,11 @@ def get_companies_data():
 
 
 def get_news(url: str):
-    page = requests.get(url)
+    try:
+        page = requests.get(url)
+    except Exception as e:
+        print(e)
+
     xml_content = page.content
     root = ET.fromstring(xml_content)
 
@@ -57,7 +61,11 @@ def get_news(url: str):
             news += get_news(url)
         else:
             sleep(SLEEP_TIME)
-            page = requests.get(url)
+            try:
+                page = requests.get(url)
+            except Exception as e:
+                print(e)
+
             parsed_content = BeautifulSoup(page.content, 'html.parser')
             title = parsed_content.find('h1', {'class' : 'content-head__title'})
             article = parsed_content.find('article')
@@ -125,9 +133,12 @@ closes = []
 variations = []
 def set_values(ticker):
     sleep(SLEEP_TIME)
-    stock = yf.download(tickers=ticker)
+    try:
+        stock = yf.download(tickers=ticker)
+    except Exception as e:
+        print(e)
+
     stock_data = stock[date:date]
-    
     if stock_data is None or stock_data.empty or len(stock_data) == 0:
         opens.append(-1)
         closes.append(-1)
