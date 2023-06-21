@@ -11,8 +11,10 @@ import json
 import codecs
 
 
-QTD_BASE = 3
+QTD_BASE = 64
 SLEEP_TIME = 5
+xmls_counter = 0
+articles_counter = 0
 
 
 # Seleciona valores aleatórios
@@ -36,42 +38,52 @@ def get_companies_data():
 
 
 def get_news(url: str):
+    global xmls_counter, articles_counter
+
     try:
         page = requests.get(url)
+        xml_content = page.content
+        root = ET.fromstring(xml_content)
+
+        # Extrair o conteúdo das tags "loc", que contém os links das notícias
+        locs = root.findall('.//{http://www.sitemaps.org/schemas/sitemap/0.9}loc')
+        
+        # Extrair o conteúdo das tags "loc", que contém a data das notícias
+        lastmod = root.find('.//{http://www.sitemaps.org/schemas/sitemap/0.9}lastmod')
+
+        # Seleciona valores aleatórios para que as notícias sejam bem distribuídas no tempo
+        locs = [locs[i] for i in random_numbers(len(locs), QTD_BASE)]
     except Exception as e:
         print(e)
-
-    xml_content = page.content
-    root = ET.fromstring(xml_content)
-
-    # Extrair o conteúdo das tags "loc", que contém os links das notícias
-    locs = root.findall('.//{http://www.sitemaps.org/schemas/sitemap/0.9}loc')
-    
-    # Extrair o conteúdo das tags "loc", que contém a data das notícias
-    lastmod = root.find('.//{http://www.sitemaps.org/schemas/sitemap/0.9}lastmod')
-
-    # Seleciona valores aleatórios para que as notícias sejam bem distribuídas no tempo
-    locs = [locs[i] for i in random_numbers(len(locs), QTD_BASE)]
+        return []
 
     news = []
     for loc in locs:
+        if not loc.text:
+            continue
+        
         url = loc.text
         if '.xml' in url:
-            print(f'Extraindo urls de {url}')
+            xmls_counter += 1
+            articles_counter = 0
+            print(f'\n\n\n\n*** {xmls_counter} - Extraindo urls de {url} ***')
+            
             news += get_news(url)
         else:
             sleep(SLEEP_TIME)
             try:
+                articles_counter += 1
+                print(f'\t{xmls_counter}.{articles_counter}) Extraindo dados de {url}')
+
                 page = requests.get(url)
+                parsed_content = BeautifulSoup(page.content, 'html.parser')
+                title = parsed_content.find('h1', {'class' : 'content-head__title'})
+                article = parsed_content.find('article')
+                date = lastmod.text[:10]
+
+                news += [{'URL': url, 'DATE': date, 'TITLE': title.text, 'NEWS': article.text}]
             except Exception as e:
                 print(e)
-
-            parsed_content = BeautifulSoup(page.content, 'html.parser')
-            title = parsed_content.find('h1', {'class' : 'content-head__title'})
-            article = parsed_content.find('article')
-            date = lastmod.text[:10]
-
-            news += [{'URL': url, 'DATE': date, 'TITLE': title.text, 'NEWS': article.text}]
     
     return news
 
@@ -90,18 +102,24 @@ def news_processing(news, companies):
     results = []
     with ThreadPoolExecutor() as executor:
         for _, article in news.iterrows():
-            future = executor.submit(check_mention_company, article, companies)
-            results.append(future)
+            try:
+                future = executor.submit(check_mention_company, article, companies)
+                results.append(future)
+            except Exception as e:
+                print(e)
     
     # Extrair dados
     data = []
     for result in results:
-        news_mentions = result.result()
-        if news_mentions['MENTIONS']:
-            article, mentions = news_mentions['ARTICLE'], news_mentions['MENTIONS']
-            for mention in mentions:
-                data.append({'DATE': article['DATE'], 'URL': article['URL'], 'TITLE': article['TITLE'],
-                            'NAME': mention['NAME'], 'TICKER': mention['TICKER']})
+        try:
+            news_mentions = result.result()
+            if news_mentions['MENTIONS']:
+                article, mentions = news_mentions['ARTICLE'], news_mentions['MENTIONS']
+                for mention in mentions:
+                    data.append({'DATE': article['DATE'], 'URL': article['URL'], 'TITLE': article['TITLE'],
+                                'NAME': mention['NAME'], 'TICKER': mention['TICKER']})
+        except Exception as e:
+            print(e)
     
     return pd.DataFrame(data)
 
@@ -133,10 +151,7 @@ closes = []
 variations = []
 def set_values(ticker):
     sleep(SLEEP_TIME)
-    try:
-        stock = yf.download(tickers=ticker)
-    except Exception as e:
-        print(e)
+    stock = yf.download(tickers=ticker)
 
     stock_data = stock[date:date]
     if stock_data is None or stock_data.empty or len(stock_data) == 0:
@@ -150,15 +165,18 @@ def set_values(ticker):
         variations.append(round((cl - op), 2))
 
 for _, row in df_result.iterrows():
-    ticker, date = row['TICKER'], row['DATE']
-    if ticker_exists(ticker):
-        set_values(ticker)
-    elif ticker_exists(f'{ticker}.SA'):
-        set_values(f'{ticker}.SA')
-    else:
-        opens.append(-1)
-        closes.append(-1)
-        variations.append(-1)
+    try:
+        ticker, date = row['TICKER'], row['DATE']
+        if ticker_exists(ticker):
+            set_values(ticker)
+        elif ticker_exists(f'{ticker}.SA'):
+            set_values(f'{ticker}.SA')
+        else:
+            opens.append(-1)
+            closes.append(-1)
+            variations.append(-1)
+    except Exception as e:
+        print(e)
 
 # Insere os dados obtidos no DataFrame
 df_result['OPEN'] = opens
@@ -166,7 +184,10 @@ df_result['CLOSE'] = closes
 df_result['VARIATION'] = variations
 
 # Converte o DataFrame para um formato mais adequado
-dict_list = df_result.to_dict(orient='records')
+try:
+    dict_list = df_result.to_dict(orient='records')
+except Exception as e:
+    print(e)
 
 # Converte os objetos Pyhton em objeto JSON e exporta para o noticias.json
 with codecs.open('resultado.json', 'w', encoding='utf-8') as arquivo:
